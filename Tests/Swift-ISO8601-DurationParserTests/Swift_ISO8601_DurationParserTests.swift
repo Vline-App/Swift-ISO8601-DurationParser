@@ -70,8 +70,9 @@ final class Swift_ISO8601_DurationParserTests: XCTestCase {
         XCTAssertEqual(dateComponents.second, 42)
     }
 
-    func testParsingFractionalSecondsRoundingUp() throws {
+    func testParsingFractionalSeconds() throws {
         let dateComponents = try DateComponents.from8601String("PT18.6125S")
-        XCTAssertEqual(dateComponents.second, 19)
+        XCTAssertEqual(dateComponents.second, 18)
+        XCTAssertEqual(dateComponents.nanosecond, 612_500_000)
     }
 }

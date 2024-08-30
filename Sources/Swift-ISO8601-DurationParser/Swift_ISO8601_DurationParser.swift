@@ -85,9 +85,11 @@ public extension DateComponents {
         let hour = componentFor("H", in: timeString).addingFractionsFrom(day, multiplier: 24)
         let minute = componentFor("M", in: timeString).addingFractionsFrom(hour, multiplier: 60)
         let second = componentFor("S", in: timeString).addingFractionsFrom(minute, multiplier: 60)
+        let millisecond = Double("0").addingFractionsFrom(second, multiplier: 1000)
         dateComponents.hour = hour?.nonFractionParts
         dateComponents.minute = minute?.nonFractionParts
-        dateComponents.second = second.map { Int($0.rounded()) }
+        dateComponents.second = second?.nonFractionParts
+        dateComponents.nanosecond = millisecond.map { Int($0 * 1_000_000) }
 
         return dateComponents
     }
